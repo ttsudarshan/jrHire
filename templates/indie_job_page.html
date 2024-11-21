@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/output.css">
+    <style>
+        ::selection {
+            background-color: lightgreen; /* Change this to your desired color */
+            color: black; /* Change the text color if needed */
+        }
+        
+        /* For Firefox, you might also want to add this */
+        ::-moz-selection {
+            background-color: lightgreen; /* Change this to your desired color */
+            color: black; /* Change the text color if needed */
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-8">
+        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden relative">
+            <!-- Geometric pattern overlay -->
+            <div class="geometric-pattern absolute inset-0 opacity-5"></div>
+            <div class="card-gradient absolute inset-0 opacity-0 pointer-events-none"></div>
+
+            <!-- Content container -->
+            <div class="p-8 relative z-10">
+                <!-- Header Section -->
+                <div class="text-center mb-8">
+                    <h1 class="text-4xl font-bold text-gray-800 mb-3">{{jobs.job_title}}</h1>
+                    <div class="flex items-center justify-center gap-2 mb-2">
+                        <h2 class="text-xl text-gray-700">{{jobs.company_name}}</h2>
+                        <span class="bg-gradient-to-r from-yellow-100 to-yellow-200 text-yellow-800 px-3 py-0.5 rounded-full text-sm font-semibold">Featured</span>
+                    </div>
+                    <div class="flex justify-center items-center gap-4 text-gray-600">
+                        <span class="flex items-center gap-1">⏱ {{jobs.time_period}} Months</span>
+                        <span class="flex items-center gap-1">🌍 {{jobs.location}}</span>
+                        <span>{{jobs.is_remote | thisisthat_remote}} • {{jobs.is_worldwide | thisisthat_worldwide}}</span>
+                    </div>
+                </div>
+
+                <!-- Main Content Sections -->
+                <div class="space-y-8">
+                    <!-- Introduction -->
+                    <div class="bg-white/80 backdrop-blur-sm border border-gray-100 p-6 rounded-xl shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Introduction</h3>
+                        <p class="text-gray-700 leading-relaxed">{{jobs.introduction}}</p>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="bg-white/80 backdrop-blur-sm border border-gray-100 p-6 rounded-xl shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Description</h3>
+                        <p class="text-gray-700 leading-relaxed">{{jobs.description}}</p>
+                    </div>
+
+                    <!-- Requirements -->
+                    <div class="bg-white/80 backdrop-blur-sm border border-gray-100 p-6 rounded-xl shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Requirements</h3>
+                        <p class="text-gray-700 leading-relaxed">{{jobs.requirements}}</p>
+                    </div>
+
+                    <!-- Benefits -->
+                    <div class="bg-white/80 backdrop-blur-sm border border-gray-100 p-6 rounded-xl shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Benefits</h3>
+                        <ul class="list-none space-y-2">
+                            {% for benefit in benefits %}
+                                <li class="flex items-center gap-2 text-gray-700">
+                                    <span class="text-green-500">✓</span>
+                                    {{ benefit }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <!-- Compensation -->
+                    <div class="bg-white/80 backdrop-blur-sm border border-gray-100 p-6 rounded-xl shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Compensation</h3>
+                        <p class="text-gray-700 flex items-center gap-2">
+                            <span class="text-2xl text-green-600 font-bold">{{jobs.compensation_per_hour | check_compensation}}</span>
+                            {% if jobs.compensation_per_hour %}
+                            <span class="text-gray-600">USD / HOUR</span>
+                            {% endif %}
+                        </p>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="flex flex-wrap gap-2">
+                        {% for tag in tags %}
+                            <span class="px-4 py-2 rounded-full text-sm bg-gradient-to-r from-blue-50 to-blue-100 text-blue-800 font-medium hover:from-blue-100 hover:to-blue-200 transition-all duration-300">
+                                {{ tag }}
+                            </span>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Apply Button -->
+                    <div class="mt-8 text-center">
+                        <a href="{{jobs.url_ats}}" target="_blank" class="apply-button group relative inline-flex items-center justify-center px-12 py-3 font-bold text-white overflow-hidden rounded-lg">
+                            <div class="absolute inset-0 w-full h-full transition-all duration-300 bg-gradient-to-br from-blue-600 via-blue-500 to-indigo-600"></div>
+                            <div class="absolute bottom-0 left-0 w-full h-full wave-pattern opacity-30 group-hover:opacity-50 transition-opacity"></div>
+                            <div class="absolute inset-0 scale-0 group-hover:scale-100 transition-transform duration-500 bg-gradient-to-r from-blue-400/20 to-indigo-400/20 blur-xl"></div>
+                            <span class="relative flex items-center gap-2">
+                                <span class="tracking-wider">Apply Now</span>
+                                <svg class="w-5 h-5 transform transition-transform duration-500 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                </svg>
+                            </span>
+                            <div class="absolute inset-0 rounded-lg transition-all duration-300 group-hover:ring-4 ring-blue-400/30"></div>
+                        </a>
+                    </div>
+
+                    <style>
+                    .apply-button {
+                        transform: perspective(1000px);
+                        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                    }
+                    .apply-button:hover {
+                        transform: perspective(1000px) translateY(-2px);
+                        box-shadow: 
+                            0 0 60px -15px rgba(0, 0, 0, 0.1),
+                            0 0 100px -15px rgba(66, 153, 225, 0.2),
+                            0 0 150px -15px rgba(79, 70, 229, 0.15);
+                    }
+                    .wave-pattern {
+                        background: 
+                            linear-gradient(45deg, transparent 48%, rgba(255,255,255,.1) 49%, rgba(255,255,255,.1) 51%, transparent 52%),
+                            linear-gradient(-45deg, transparent 48%, rgba(255,255,255,.1) 49%, rgba(255,255,255,.1) 51%, transparent 52%);
+                        background-size: 30px 30px;
+                        animation: mountainFlow 4s linear infinite;
+                    }
+                    @keyframes mountainFlow {
+                        0% { background-position: 0 0; }
+                        25% { background-position: 15px -15px; }
+                        50% { background-position: 30px 0; }
+                        75% { background-position: 15px 15px; }
+                        100% { background-position: 0 0; }
+                    }
+                    </style>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .geometric-pattern {
+            background-image: linear-gradient(30deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
+                             linear-gradient(150deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
+                             linear-gradient(30deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
+                             linear-gradient(150deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
+                             linear-gradient(60deg, #77777777 25%, transparent 25.5%, transparent 75%, #77777777 75%, #77777777);
+            background-size: 40px 70px;
+        }
+
+        .card-gradient {
+            background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), 
+                                      rgba(134, 239, 172, 0.3), 
+                                      transparent 200px);
+            transition: opacity 0.2s ease;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.querySelector('.max-w-4xl');
+            
+            container.addEventListener('mousemove', (e) => {
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                container.style.setProperty('--mouse-x', `${x}px`);
+                container.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+
+
+
+</body>
+</html>

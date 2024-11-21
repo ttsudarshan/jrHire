@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hirejr | Post Job 🔥</title>
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    <link rel="stylesheet" href="./static/css/output.css">
+    <style>
+        ::selection {
+            background-color: lightgreen; /* Change this to your desired color */
+            color: black; /* Change the text color if needed */
+        }
+        
+        /* For Firefox, you might also want to add this */
+        ::-moz-selection {
+            background-color: lightgreen; /* Change this to your desired color */
+            color: black; /* Change the text color if needed */
+        }
+        
+    </style>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+<!-- title  -->
+<div class="m-1">
+    <div class="relative overflow-hidden bg-gradient-to-r from-gray-50 to-white shadow-xl border-2 rounded-2xl mx-auto max-w-7xl m-4">
+        <!-- Flowing water background -->
+        <div class="absolute inset-0">
+            <div class="water-wave"></div>
+            <div class="water-wave" style="animation-delay: 0.5s"></div>
+            <div class="water-wave" style="animation-delay: 1s"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative py-12 px-8">
+            <h1 class="text-4xl font-extrabold text-center">
+                <span class="inline-block transform hover:scale-105 transition-transform duration-200">
+                    Post your dream job on
+                </span>
+                <a href="{{url_for ('landingpage')}}" class="inline-block ml-2 group">
+                    <span class="flowing-text">hire</span>
+                    <span class="flowing-text-alt">jr</span>
+                    <div class="h-0.5 w-0 group-hover:w-full transition-all duration-300 flowing-underline"></div>
+                </a>
+            </h1>
+            <p class="text-center mt-4 text-gray-600 animate-pulse">
+                🔥 Limited Time Offer - Post Now! 🔥
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+.water-wave {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, 
+        rgba(65,105,225,0.08), 
+        rgba(70,130,180,0.08), 
+        rgba(100,149,237,0.08));
+    animation: wave 15s linear infinite;
+    transform-origin: center;
+    border-radius: 1rem;
+}
+
+@keyframes wave {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.flowing-text {
+    background: linear-gradient(90deg, #ff6b6b, #ff8787, #ff6b6b);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: flowText 3s linear infinite;
+}
+
+.flowing-text-alt {
+    background: linear-gradient(90deg, #4facfe, #00f2fe, #4facfe);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: flowText 3s linear infinite;
+}
+
+.flowing-underline {
+    background: linear-gradient(90deg, #ff6b6b, #4facfe);
+    background-size: 200% auto;
+    animation: flowText 3s linear infinite;
+}
+
+@keyframes flowText {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+</style>
+
+<div class="container mx-auto px-4">
+    <div class="flex flex-col md:flex-row gap-8">
+        <!-- Left Section -->
+        <div class="flex-1">
+            <form method="POST" action="{{ url_for('jobpage') }}" class="bg-white shadow-lg p-6 rounded-lg my-8">
+                <label class="text-gray-700 text-lg font-semibold mb-1 block">Company Name:</label>
+                <input type="text" name="company_name" class="w-full rounded-lg p-3 mb-4 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Company's Name" required>
+
+                <label class="text-gray-700 text-lg font-semibold mb-1 block">Job Type:</label>
+                <select name="job_type" class="w-full rounded-lg p-3 mb-4 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+                    <option value="intern">Intern</option>
+                    <option value="trainee">Trainee</option>
+                    <option value="associate">Associate</option>
+                    <option value="freshers">Freshers</option>
+                </select>
+
+                <label class="text-gray-700 text-lg font-semibold mb-1 block">Job title:</label>
+                <input type="text" name="job_title" class="w-full rounded-lg p-3 mb-4 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Job Title" required>
+
+                <label class="text-gray-700 text-lg font-semibold mb-1 block">Time Period:</label>
+                <input type="text" name="time_period" class="w-full rounded-lg p-3 mb-4 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="**In Months**" required>
+
+                <label class="text-gray-700 text-lg font-semibold mb-1 block">Company's Location:</label>
+                <input type="text" name="location" class="w-full rounded-lg p-3 mb-4 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Format: Country, City">
+
+                <!-- Tags Input -->
+                <label class="text-gray-700 text-lg font-semibold mb-1 block">Tags, Keywords or Stack*</label>
+                <div class="relative">
+                    <div class="flex flex-wrap items-center gap-2 border-2 border-red-300 rounded-lg p-2 bg-gray-50">
+                        <div id="tags" class="flex flex-wrap gap-2"></div>
+                        <input 
+                            id="tag-input" 
+                            type="text" 
+                            class="flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400" 
+                            placeholder="Type a tag or keyword to search and add it"
+                            oninput="filterDropdown()"
+                        >
+                    </div>
+                    <input type="hidden" name="tags" id="tags-hidden">
+                    <div id="dropdown" class="absolute top-full left-0 right-0 bg-white shadow-lg rounded-lg mt-2 max-h-48 overflow-auto hidden z-50">
+                        <ul class="text-gray-700">
+                            <li class="p-2 text-blue-600 font-bold">Programming Languages</li>
+                            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('JavaScript')">📦 JavaScript</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+
+                <br>
+                <label class="text-gray-700 text-lg font-semibold mb-1 block">Introduction</label>
+                <textarea name="introduction" id="introduction" class="w-full rounded-lg p-3 mb-4 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="5" placeholder="Give a brief overview of the company"></textarea>
+
+                <br>
+                <label class="text-gray-700 text-lg font-semibold mb-1 block">Description</label>
+                <textarea name="description" id="description" class="w-full rounded-lg p-3 mb-4 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="5" placeholder="Describe the job role, responsibilities, and requirements..."></textarea>
+                <label class="text-red-500 text-sm block">Provide a brief description of the job and responsibilities</label>
+
+                <br>
+                <label class="text-gray-700 text-lg font-semibold mb-1 block">Benefits</label>
+                <textarea name="benefits" id="benefits" class="w-full rounded-lg p-3 mb-4 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="5" placeholder="List the benefits and perks offered by the company..."></textarea>
+                <label class="text-red-500 text-sm block">Start with points separated by commas (,) to be converted to bullet points</label>
+                <br>
+
+                <label class="text-gray-700 text-lg font-semibold mb-1 block">Is it remote?</label>
+                <div class="flex items-center mb-4">
+                    <input type="radio" id="remote-yes" name="is_remote" value="yes" class="mr-2">
+                    <label for="remote-yes" class="mr-4">Yes</label>
+                    <input type="radio" id="remote-no" name="is_remote" value="no" class="mr-2">
+                    <label for="remote-no" class="mr-4">No</label>
+                </div>
+                <hr>
+
+                <label class="text-gray-700 text-lg font-semibold mb-1 block">Is it paid?</label>
+                <div class="flex items-center mb-4">
+                    <input type="radio" id="paid-yes" name="is_paid" value="yes" class="mr-2" onclick="toggleSalaryInput(true)">
+                    <label for="paid-yes" class="mr-4">Yes</label>
+                    <input type="radio" id="paid-no" name="is_paid" value="no" class="mr-2" onclick="toggleSalaryInput(false)">
+                    <label for="paid-no">No</label>
+                </div>
+                <hr>
+
+                <div id="salary-input-container" class="hidden">
+                    <label class="text-gray-700 text-lg font-semibold mb-1 block">Compensation:</label>
+                    <input type="text" id="salary" name="compensation_per_hour" class="w-full rounded-lg p-3 mb-4 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Enter the compensation">
+                    <label class="text-red-500 text-sm block">Provide the amount in USD, e.g., 50 (just the number)</label>
+                </div>
+                <br>
+                <hr>
+
+                <label class="text-gray-700 text-lg font-semibold mb-1 block">Is it worldwide?</label>
+                <div class="flex items-center mb-4">
+                    <input type="radio" id="worldwide-yes" name="is_worldwide" value="1" class="mr-2">
+                    <label for="worldwide-yes" class="mr-4">Yes</label>
+                    <input type="radio" id="worldwide-no" name="is_worldwide" value="0" class="mr-2">
+                    <label for="worldwide-no">No</label>
+                </div>
+                <hr>
+
+                <div id="location-input-container" class="hidden">
+                    <label class="text-gray-700 text-lg font-semibold mb-1 block">Location:</label>
+                    <input type="text" id="location" name="location" class="w-full rounded-lg p-3 mb-4 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Enter the country or location">
+                </div>
+
+                <label class="text-gray-700 text-lg font-semibold mb-1 block">Preferences:</label>
+                <textarea name="requirements" id="preferences" class="w-full rounded-lg p-3 mb-4 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="5" placeholder="Specify any preferences for the applicant..."></textarea>
+
+                <label class="text-gray-700 text-lg font-semibold mb-1 block">ATS LINK:</label>
+                <textarea name="url_ats" id="url_ats" class="w-full rounded-lg p-3 mb-4 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="5" placeholder="Provide link to your ATS"></textarea>
+
+                <label class="text-gray-700 text-lg font-semibold mb-1 block">Select Color for your profile:</label>
+                <input type="color" id="colorPicker" name="profile_colors" class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+
+        <!-- Checkout Button -->
+        <div class="mt-8"></div>
+        <button type="submit" class="relative w-full group overflow-hidden bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-4 px-8 rounded-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <!-- Geometric patterns -->
+            <div class="absolute inset-0 opacity-20">
+                <div class="absolute top-0 left-0 w-20 h-20 -ml-8 -mt-8 rotate-45 bg-white"></div>
+                <div class="absolute bottom-0 right-0 w-20 h-20 -mr-8 -mb-8 rotate-45 bg-white"></div>
+            </div>
+            
+            <!-- Shine effect -->
+            <div class="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-shine"></div>
+
+            <!-- Button content -->
+            <div class="relative flex items-center justify-center space-x-3">
+                <span class="text-xl">Checkout Now</span>
+                <span class="font-normal bg-white/20 px-3 py-1 rounded-full">150 USD</span>
+                <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                </svg>
+            </div>
+        </button>
+    </form>
+</div>
+  
+
+
+<!-- Right Section -->
+<div class="w-full md:w-1/2 flex-shrink-0 mr-2">
+    <div class="sticky top-8">
+        <div class="bg-white/80 backdrop-blur-sm border border-gray-100 p-6 rounded-xl shadow-lg w-full">
+     
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Why Choose hirejr?</h2>
+            
+    
+            <!-- Feature Cards -->
+            <div class="space-y-6">
+                <div class="feature-card group p-4 rounded-lg border border-gray-100 hover:border-blue-200 transition-all duration-300">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-1">Verified Opportunities</h3>
+                            <p class="text-gray-600">All job postings are manually reviewed to ensure quality and legitimacy</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card group p-4 rounded-lg border border-gray-100 hover:border-green-200 transition-all duration-300">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-green-50 rounded-lg group-hover:bg-green-100 transition-colors">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-1">Fast-Track Hiring</h3>
+                            <p class="text-gray-600">Streamlined process to connect with top talent quickly and efficiently</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card group p-4 rounded-lg border border-gray-100 hover:border-purple-200 transition-all duration-300">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-purple-50 rounded-lg group-hover:bg-purple-100 transition-colors">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-1">Competitive Pricing</h3>
+                            <p class="text-gray-600">Affordable plans designed to support businesses of all sizes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial -->
+            <div class="mt-8 p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-400 to-indigo-500 flex items-center justify-center text-white font-bold text-xl">
+                        M
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800">Mark Thompson</h4>
+                        <p class="text-sm text-gray-600">CEO, TechStart</p>
+                    </div>
+                </div>
+                <p class="text-gray-700 italic">"hirejr transformed our hiring process. We found amazing talent within days, not weeks. The quality of candidates exceeded our expectations."</p>
+            </div>
+
+            <!-- Stats -->
+            <div class="mt-8 grid grid-cols-3 gap-4">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-600">500+</div>
+                    <div class="text-sm text-gray-600">Companies</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-600">10k+</div>
+                    <div class="text-sm text-gray-600">Placements</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-purple-600">98%</div>
+                    <div class="text-sm text-gray-600">Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get DOM elements once the document is loaded
+        const tagsContainer = document.getElementById('tags');
+        const tagInput = document.getElementById('tag-input');
+        const dropdown = document.getElementById('dropdown');
+        const hiddenInput = document.getElementById('tags-hidden');
+    
+        if (!tagsContainer || !tagInput || !dropdown || !hiddenInput) {
+            console.error('Required elements not found');
+            return;
+        }
+    
+        // Show/hide dropdown
+        tagInput.addEventListener('focus', () => {
+            dropdown.classList.remove('hidden');
+        });
+    
+        document.addEventListener('click', (e) => {
+            if (!dropdown.contains(e.target) && !tagInput.contains(e.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    
+        // Make functions available globally
+        window.addTag = function(tag) {
+            // Prevent duplicate tags
+            const existingTags = Array.from(tagsContainer.children).map(tag => 
+                tag.textContent.trim().replace('×', '').trim()
+            );
+            
+            if (existingTags.includes(tag)) {
+                return;
+            }
+    
+            // Create tag element
+            const tagEl = document.createElement('div');
+            tagEl.classList = 'flex items-center bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium';
+            tagEl.innerHTML = `${tag} <span class="ml-2 cursor-pointer text-red-500" onclick="removeTag(this)">&times;</span>`;
+            
+            // Add to container
+            tagsContainer.appendChild(tagEl);
+            
+            // Update hidden input value
+            updateHiddenInput();
+    
+            // Clear input and keep focus
+            tagInput.value = '';
+            tagInput.focus();
+            
+            // Hide dropdown
+            dropdown.classList.add('hidden');
+        };
+    
+        window.removeTag = function(element) {
+            element.parentNode.remove();
+            updateHiddenInput();
+        };
+    
+        window.filterDropdown = function() {
+            const filter = tagInput.value.toLowerCase();
+            const items = dropdown.getElementsByTagName('li');
+            
+            for (let item of items) {
+                if (!item.classList.contains('text-blue-600')) { // Skip category headers
+                    const text = item.textContent.toLowerCase();
+                    if (text.includes(filter)) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+            }
+        };
+    
+        function updateHiddenInput() {
+            const tags = Array.from(tagsContainer.children).map(tagEl => 
+                tagEl.textContent.trim().replace('×', '').trim()
+            );
+            hiddenInput.value = tags.join(',');
+        }
+    });
+    </script>
+
+        <script>
+            function toggleSalaryInput(show) {
+                const salaryInputContainer = document.getElementById('salary-input-container');
+                if (show) {
+                    salaryInputContainer.classList.remove('hidden');
+                } else {
+                    salaryInputContainer.classList.add('hidden');
+                }
+            }
+        </script>
+
+        </div>
+        
+
+
+<script>
+    const tagsContainer = document.getElementById('tags');
+    const tagInput = document.getElementById('tag-input');
+    const dropdown = document.getElementById('dropdown');
+    let currentFocus = -1;
+
+    // Show all items when clicking on input
+    tagInput.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showAllItems();
+    });
+
+    function showAllItems() {
+        dropdown.classList.remove('hidden');
+        const items = dropdown.querySelectorAll('li:not(.text-blue-600)'); // Exclude headers
+        items.forEach(item => {
+            item.style.display = 'block';
+        });
+    }
+
+    function addTag(tag) {
+        // Create tag element
+        const tagEl = document.createElement('div');
+        tagEl.classList = 'flex items-center bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium';
+        tagEl.innerHTML = `${tag} <span class="ml-2 cursor-pointer text-red-500" onclick="removeTag(this)">&times;</span>`;
+        
+        // Add to container
+        tagsContainer.appendChild(tagEl);
+        
+        // Clear input and keep focus
+        tagInput.value = '';
+        tagInput.focus();
+        
+        // Show all items again
+        showAllItems();
+        currentFocus = -1;
+    }
+
+    function removeTag(element) {
+        element.parentNode.remove();
+    }
+
+    function filterDropdown() {
+        const value = tagInput.value.toLowerCase();
+        dropdown.classList.remove('hidden');
+        
+        // Filter dropdown items based on input
+        const items = dropdown.querySelectorAll('li:not(.text-blue-600)'); // Exclude headers
+        let visibleItems = 0;
+        
+        items.forEach(item => {
+            const text = item.innerText.toLowerCase();
+            if (text.includes(value)) {
+                item.style.display = 'block';
+                visibleItems++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Show/hide category headers based on whether they have visible items
+        const categories = dropdown.querySelectorAll('.text-blue-600');
+        categories.forEach(category => {
+            let nextEl = category.nextElementSibling;
+            let hasVisibleItems = false;
+            
+            while (nextEl && !nextEl.classList.contains('text-blue-600')) {
+                if (nextEl.style.display !== 'none') {
+                    hasVisibleItems = true;
+                    break;
+                }
+                nextEl = nextEl.nextElementSibling;
+            }
+            
+            category.style.display = hasVisibleItems ? 'block' : 'none';
+        });
+
+        // Reset current focus when filtering
+        currentFocus = -1;
+    }
+
+    // Add keyboard navigation
+    tagInput.addEventListener('keydown', (e) => {
+        const items = Array.from(dropdown.querySelectorAll('li:not(.text-blue-600)'))
+            .filter(item => item.style.display !== 'none');
+        
+        if (items.length === 0) return;
+
+        // Down arrow
+        if (e.keyCode === 40) {
+            e.preventDefault(); // Prevent cursor from moving
+            currentFocus++;
+            if (currentFocus >= items.length) currentFocus = 0;
+            setActiveItem(items);
+        }
+        // Up arrow
+        else if (e.keyCode === 38) {
+            e.preventDefault(); // Prevent cursor from moving
+            currentFocus--;
+            if (currentFocus < 0) currentFocus = items.length - 1;
+            setActiveItem(items);
+        }
+        // Enter key
+        else if (e.keyCode === 13) {
+            e.preventDefault();
+            if (currentFocus > -1 && items[currentFocus]) {
+                // Extract the tag text without the emoji
+                const fullText = items[currentFocus].innerText;
+                const tag = fullText.split(' ').slice(1).join(' '); // Remove emoji
+                addTag(tag);
+            } else if (items.length > 0) {
+                // If no item is focused, select the first visible item
+                const fullText = items[0].innerText;
+                const tag = fullText.split(' ').slice(1).join(' ');
+                addTag(tag);
+            }
+        }
+        // Escape key
+        else if (e.keyCode === 27) {
+            dropdown.classList.add('hidden');
+            currentFocus = -1;
+        }
+    });
+
+    function setActiveItem(items) {
+        removeActive(items);
+        if (currentFocus >= 0 && items[currentFocus]) {
+            items[currentFocus].classList.add('bg-blue-50');
+            items[currentFocus].classList.remove('hover:bg-gray-100');
+            // Scroll item into view if needed
+            items[currentFocus].scrollIntoView({ block: 'nearest' });
+        }
+    }
+
+    function removeActive(items) {
+        items.forEach(item => {
+            item.classList.remove('bg-blue-50');
+            item.classList.add('hover:bg-gray-100');
+        });
+    }
+
+    // Hide dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target) && e.target !== tagInput) {
+            dropdown.classList.add('hidden');
+            currentFocus = -1;
+        }
+    });
+
+    // Prevent dropdown from closing when clicking inside it
+    dropdown.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    // Clear current focus when mouse enters dropdown
+    dropdown.addEventListener('mouseenter', () => {
+        const items = dropdown.querySelectorAll('li:not(.text-blue-600)');
+        removeActive(Array.from(items));
+        currentFocus = -1;
+    });
+
+    // Initialize by showing all items if input is focused
+    tagInput.addEventListener('focus', showAllItems);
+</script>
+
+
+
+<script>
+    const checkout_public_key = '{{checkout_public_key}}'
+    const checkout_session = '{{checkout_session}}'
+</script>
+ 
+<script src="{{ url_for('static', filename='js/stripe_int.js') }}"></script>
+
+</body>
+</html>

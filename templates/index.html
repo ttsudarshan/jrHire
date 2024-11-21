@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hirejr | Remote Job Board 🔥</title>
+    <link rel="stylesheet" href="./static/css/output.css">
+    <style>
+        ::selection {
+            background-color: lightgreen; /* Change this to your desired color */
+            color: black; /* Change the text color if needed */
+        }
+        
+        /* For Firefox, you might also want to add this */
+        ::-moz-selection {
+            background-color: lightgreen; /* Change this to your desired color */
+            color: black; /* Change the text color if needed */
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        * {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+    </style>
+</head>
+<script src="{{ url_for('static', filename='js/dynamic_call.js') }}"></script>
+<script src="{{ url_for('static', filename='js/search_index.js') }}"></script>
+
+
+<body>
+
+<!-- Announcement Banner -->
+<div class="bg-gradient-to-r from-emerald-100 to-emerald-200 h-10 flex items-center justify-center gap-4 shadow-sm">
+    <img src="https://media.giphy.com/media/QMkPpxPDYY0fu/giphy.gif" alt="fire" class="h-7 animate-bounce">
+    <span class="text-gray-800 font-semibold text-lg tracking-wide flex items-center gap-2">
+        <span class="text-red-600">🎯</span>
+        Discover Dream Opportunities for Freshers, Interns & Researchers
+        <span class="text-red-600">🚀</span>
+    </span>
+    <img src="https://media.giphy.com/media/QMkPpxPDYY0fu/giphy.gif" alt="fire" class="h-7 animate-bounce">
+</div>
+
+<!-- Hero Section -->
+<div class="relative h-[400px] bg-cover bg-center bg-fixed rounded-bl-[80px] rounded-br-[80px] overflow-hidden" 
+     style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1698891668251-fd6974673f82?fm=jpg&q=80&w=3000');">
+    
+    <!-- Post Job Button -->
+    <div class="absolute top-0 right-0 m-6">
+        <a href="{{url_for ('jobpage')}}" 
+           class="bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3 px-6 rounded-full hover:shadow-lg transform hover:-translate-y-1 transition duration-300 ease-in-out">
+           ✨ Post a Job
+        </a>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="flex flex-col items-center justify-center h-full max-w-5xl mx-auto px-4">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-8 text-center text-white leading-tight">
+            Today's 
+            <span class="inline-block bg-yellow-400 text-blue-900 px-4 py-2 rounded-lg transform -rotate-2 hover:rotate-0 transition-transform duration-300" id="changing-text">
+                Intern
+            </span>
+            <br>Tomorrow's Professional
+        </h1>
+
+        <!-- Search Container -->
+        <div class="w-full max-w-3xl relative">
+            <input 
+                type="text" 
+                placeholder="Search your dream role..." 
+                class="w-full p-4 pl-12 text-lg border-2 border-gray-200 rounded-full shadow-xl focus:ring-4 focus:ring-green-200 focus:border-green-400 transition duration-300 ease-in-out"
+                id="jobSearch"
+            >
+            <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                🔍
+            </span>
+        </div>
+
+        <!-- Stats -->
+        <div class="flex gap-8 mt-8">
+            <div class="text-white text-center">
+                <div class="text-2xl font-bold">1000+</div>
+                <div class="text-gray-200">Active Jobs</div>
+            </div>
+            <div class="text-white text-center">
+                <div class="text-2xl font-bold">500+</div>
+                <div class="text-gray-200">Companies</div>
+            </div>
+            <div class="text-white text-center">
+                <div class="text-2xl font-bold">10k+</div>
+                <div class="text-gray-200">Placements</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- first block  -->
+    <div class="w-full max-w-6xl mx-auto px-4 py-2">
+        <!-- Main Container with Center Alignment -->
+        <div class="flex flex-col items-center">
+            <!-- Search Bar and Filters Row -->
+            <div class="flex items-center justify-center space-x-4 w-full">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <button class="p-2 rounded-full bg-green-200">JrHire</button>
+                </div>
+    
+                <!-- Stacks Dropdown -->
+                <div class="relative">
+                    <select class="pl-5 pr-8 py-2 border rounded-full bg-white appearance-none w-48 text-gray-500">
+                        <span class="absolute left-3">🔍</span>
+                        <option value="">🔍 Search Stack</option>
+                        <option value="python">🐍 Python</option>
+                        <option value="django">🎸 Django</option>
+                        <option value="laravel">🚀 Laravel</option>
+                        <option value="react">⚛️ React</option>
+                        <option value="vue">💚 Vue.js</option>
+                        <option value="node">💻 Node.js</option>
+                        <option value="angular">🅰️ Angular</option>
+                        <option value="ruby">💎 Ruby</option>
+                        <option value="java">☕ Java</option>
+                    </select>
+                </div>
+    
+                <!-- Type Dropdown -->
+                <div class="relative">
+                    <select class="pl-5 pr-2 py-2 border rounded-full bg-white appearance-none w-36 text-gray-500">
+                        <span class="absolute left-3">💼</span>
+                        <option value="">💼Job Type</option>
+                        <option value="full-time">🕒 Internship</option>
+                        <option value="part-time">⌛ Part-Time</option>
+                        <option value="contract">📄 Trainee</option>
+                        <option value="freelance">🆓 Associate</option>
+                        <option value="student-researcher">🎓 Student Researcher</option>
+                        <option value="researcher">🎓 Researcher</option>
+                        <option value="phd-assistant">🎓 PHD Assistant</option>
+                    </select>
+                </div>
+    
+                <!-- Salary Dropdown -->
+                <div class="relative">
+                    <select class="pl-5 pr-8 py-2 border rounded-full bg-white appearance-none w-36 text-gray-500">
+                        <span class="absolute left-3">💰</span>
+                        <option value="">💰 Salary</option>
+                        <option value="paid">💵 Paid</option>
+                        <option value="unpaid">💵 Unpaid</option>
+
+                    </select>
+                </div>
+
+</div>
+
+</div>
+
+</div>
+
+
+    
+    
+    <!-- job cards with enhanced styling -->
+    <div class="max-w-4xl mx-auto space-y-4 p-4">
+        {% for job in jobs %}
+        <a href="{{url_for('indie_job_page', id=job.id)}}" class="block"></a>
+    <a href="{{url_for('indie_job_page', id=job.id)}}" class="block">
+    <div class="card-container bg-gradient-to-b from-white to-gray-50 rounded-lg p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 relative overflow-hidden" >
+        <!-- Geometric pattern overlay -->
+        <div class="geometric-pattern absolute inset-0 opacity-5"></div>
+        <div class="card-gradient absolute inset-0 opacity-0 pointer-events-none"></div>
+        <div class="flex items-center gap-4 relative z-10">
+            <!-- Rest of the card content remains same -->
+            <div class="w-12 h-12 rounded-full flex items-center justify-center shadow-inner" 
+                 style="background: linear-gradient(135deg, {{ job.profile_colors }}, {{ job.profile_colors }}dd);">
+                <span class="text-xl font-bold text-white text-shadow">{{ job.company_name | first_letter }}</span>
+            </div>
+            
+            <div class="flex-grow">
+                <!-- Same content as before -->
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h2 class="font-bold text-lg text-gray-800 hover:text-blue-600 transition-colors">{{job.job_title}}</h2>
+                        <div class="flex items-center gap-2 text-sm">
+                            <span class="font-medium text-gray-700">{{job.company_name}}</span>
+                            <span class="bg-gradient-to-r from-yellow-100 to-yellow-200 text-yellow-800 px-2 py-0.5 rounded-full text-xs font-semibold animate-pulse">HOT</span>
+                        </div>
+                        <div class="flex items-center gap-3 mt-2 text-gray-600 text-sm">
+                            <span class="flex items-center gap-1">🌍 {{job.location}}</span>
+                            {% if job.compensation_per_hour %}
+                            <span class="flex items-center gap-1 bg-green-50 px-2 py-1 rounded-full">
+                                💰 {{job.compensation_per_hour | check_compensation}} USD/hr
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <span class="text-gray-500 text-sm bg-gray-50 px-2 py-1 rounded-full">{{job.created_at | time_since}}</span>
+                </div>      
+                
+                <div class="flex flex-wrap gap-2 mt-3">
+                    {% for tag in job.tags.split(',') %}
+                        <span class="px-3 py-1 rounded-full text-sm bg-gradient-to-r from-green-100 to-blue-100 hover:from-green-200 hover:to-blue-200 transition-all duration-300 border border-transparent hover:border-green-200">
+                            {{ tag.strip() }}
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </a>
+    {% endfor %}
+</div>
+
+<style>
+    .card-container {
+        position: relative;
+    }
+    
+    .geometric-pattern {
+        background-image: linear-gradient(30deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
+                         linear-gradient(150deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
+                         linear-gradient(30deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
+                         linear-gradient(150deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
+                         linear-gradient(60deg, #77777777 25%, transparent 25.5%, transparent 75%, #77777777 75%, #77777777);
+        background-size: 40px 70px;
+        opacity: 0.03;
+    }
+    
+    .card-gradient {
+        background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), 
+                                  rgba(134, 239, 172, 0.3), 
+                                  transparent 200px);
+        transition: opacity 0.2s ease;
+    }
+    
+    .card-container:hover .card-gradient {
+        opacity: 1;
+    }
+    
+    .text-shadow {
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.card-container');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    });
+</script>
+
+
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Floating X Icon with Hover Effect -->
+<div class="fixed bottom-4 left-4">
+    <a href="https://twitter.com/yourusername" target="_blank" 
+       class="flex items-center bg-red-500 text-white px-3 py-2 rounded-full shadow-lg hover:bg-red-600 transition-all duration-300 group hover:pr-8">
+        <i class="fa-brands fa-x-twitter mr-2"></i>
+        <span class="font-medium whitespace-nowrap overflow-hidden w-0 group-hover:w-auto transition-all duration-300">
+            <div class="text-base">Connect with me on X</div>
+            <div class="text-xs opacity-75">report bug or give suggestions</div>
+        </span>
+    </a>
+</div>
+
+<style>
+.group:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+</style>
+
+<!-- Scroll to Top Button -->
+<div class="fixed bottom-4 right-4">
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" 
+            class="bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition-colors duration-300">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</div>
+
+
+
+<!-- for changing text  -->
+        <script>
+            const texts = ["Intern", "Trainee", "Junior"];
+            let index = 0;
+            const changingText = document.getElementById('changing-text');
+
+            setInterval(() => {
+                index = (index + 1) % texts.length;
+                changingText.textContent = texts[index];
+            }, 2000);
+        </script>
+
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label class="text-gray-700 text-lg font-semibold mb-1 block">Prefered Location</label>
+    <div class="relative">
+        <!-- Tag Container -->
+        <div class="flex flex-wrap items-center gap-2 border-2 border-red-300 rounded-lg p-2 bg-gray-50">
+            <!-- Dynamic Tags will be inserted here -->
+            <div id="tags1" class="flex flex-wrap gap-2"></div>
+
+            <!-- Input Field -->
+            <input 
+                id="tag-input1" 
+                type="text" 
+                class="flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400" 
+                placeholder="Type a tag or keyword to search and add it"
+                oninput="filterDropdown()"
+            >
+        </div>
+    <div id="dropdown1" class="absolute top-full left-0 right-0 bg-white shadow-lg rounded-lg mt-2 max-h-96 overflow-auto hidden z-50">
+        <ul class="text-gray-700">
+            <!-- Global Option -->
+            <li class="p-2 text-blue-600 font-bold sticky top-0 bg-white">Preferred Location</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Worldwide')">🌎 Worldwide</li>
+            
+            <!-- Regions Header -->
+            <li class="p-2 text-blue-600 font-semibold bg-gray-50">Regions</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Africa')">📍 Africa</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Americas')">📍 Americas</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Asia')">📍 Asia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Europe')">📍 Europe</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Oceania')">📍 Oceania</li>
+    
+            <!-- Countries Header -->
+            <li class="p-2 text-blue-600 font-semibold bg-gray-50">Countries</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Afghanistan')">🇦🇫 Afghanistan</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Albania')">🇦🇱 Albania</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Algeria')">🇩🇿 Algeria</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Andorra')">🇦🇩 Andorra</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Angola')">🇦🇴 Angola</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Antigua and Barbuda')">🇦🇬 Antigua and Barbuda</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Argentina')">🇦🇷 Argentina</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Armenia')">🇦🇲 Armenia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Australia')">🇦🇺 Australia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Austria')">🇦🇹 Austria</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Azerbaijan')">🇦🇿 Azerbaijan</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Bahamas')">🇧🇸 Bahamas</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Bahrain')">🇧🇭 Bahrain</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Bangladesh')">🇧🇩 Bangladesh</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Barbados')">🇧🇧 Barbados</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Belarus')">🇧🇾 Belarus</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Belgium')">🇧🇪 Belgium</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Belize')">🇧🇿 Belize</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Benin')">🇧🇯 Benin</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Bhutan')">🇧🇹 Bhutan</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Bolivia')">🇧🇴 Bolivia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Bosnia and Herzegovina')">🇧🇦 Bosnia and Herzegovina</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Botswana')">🇧🇼 Botswana</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Brazil')">🇧🇷 Brazil</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Brunei')">🇧🇳 Brunei</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Bulgaria')">🇧🇬 Bulgaria</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Burkina Faso')">🇧🇫 Burkina Faso</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Burundi')">🇧🇮 Burundi</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Cambodia')">🇰🇭 Cambodia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Cameroon')">🇨🇲 Cameroon</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Canada')">🇨🇦 Canada</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Cape Verde')">🇨🇻 Cape Verde</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Central African Republic')">🇨🇫 Central African Republic</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Chad')">🇹🇩 Chad</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Chile')">🇨🇱 Chile</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('China')">🇨🇳 China</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Colombia')">🇨🇴 Colombia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Comoros')">🇰🇲 Comoros</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Congo')">🇨🇬 Congo</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Costa Rica')">🇨🇷 Costa Rica</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Croatia')">🇭🇷 Croatia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Cuba')">🇨🇺 Cuba</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Cyprus')">🇨🇾 Cyprus</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Czech Republic')">🇨🇿 Czech Republic</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Denmark')">🇩🇰 Denmark</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Djibouti')">🇩🇯 Djibouti</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Dominica')">🇩🇲 Dominica</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Dominican Republic')">🇩🇴 Dominican Republic</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('East Timor')">🇹🇱 East Timor</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Ecuador')">🇪🇨 Ecuador</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Egypt')">🇪🇬 Egypt</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('El Salvador')">🇸🇻 El Salvador</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Equatorial Guinea')">🇬🇶 Equatorial Guinea</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Eritrea')">🇪🇷 Eritrea</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Estonia')">🇪🇪 Estonia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Eswatini')">🇸🇿 Eswatini</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Ethiopia')">🇪🇹 Ethiopia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Fiji')">🇫🇯 Fiji</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Finland')">🇫🇮 Finland</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('France')">🇫🇷 France</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Gabon')">🇬🇦 Gabon</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Gambia')">🇬🇲 Gambia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Georgia')">🇬🇪 Georgia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Germany')">🇩🇪 Germany</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Ghana')">🇬🇭 Ghana</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Greece')">🇬🇷 Greece</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Grenada')">🇬🇩 Grenada</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Guatemala')">🇬🇹 Guatemala</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Guinea')">🇬🇳 Guinea</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Guinea-Bissau')">🇬🇼 Guinea-Bissau</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Guyana')">🇬🇾 Guyana</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Haiti')">🇭🇹 Haiti</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Honduras')">🇭🇳 Honduras</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Hungary')">🇭🇺 Hungary</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Iceland')">🇮🇸 Iceland</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('India')">🇮🇳 India</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Indonesia')">🇮🇩 Indonesia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Iran')">🇮🇷 Iran</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Iraq')">🇮🇶 Iraq</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Ireland')">🇮🇪 Ireland</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Israel')">🇮🇱 Israel</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Italy')">🇮🇹 Italy</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Jamaica')">🇯🇲 Jamaica</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Japan')">🇯🇵 Japan</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Jordan')">🇯🇴 Jordan</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Kazakhstan')">🇰🇿 Kazakhstan</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Kenya')">🇰🇪 Kenya</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Kiribati')">🇰🇮 Kiribati</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Kuwait')">🇰🇼 Kuwait</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Kyrgyzstan')">🇰🇬 Kyrgyzstan</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Laos')">🇱🇦 Laos</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Latvia')">🇱🇻 Latvia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Lebanon')">🇱🇧 Lebanon</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Lesotho')">🇱🇸 Lesotho</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Liberia')">🇱🇷 Liberia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Libya')">🇱🇾 Libya</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Liechtenstein')">🇱🇮 Liechtenstein</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Lithuania')">🇱🇹 Lithuania</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Luxembourg')">🇱🇺 Luxembourg</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Madagascar')">🇲🇬 Madagascar</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Malawi')">🇲🇼 Malawi</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Malaysia')">🇲🇾 Malaysia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Maldives')">🇲🇻 Maldives</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Mali')">🇲🇱 Mali</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Malta')">🇲🇹 Malta</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Marshall Islands')">🇲🇭 Marshall Islands</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Mauritania')">🇲🇷 Mauritania</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Mauritius')">🇲🇺 Mauritius</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Mexico')">🇲🇽 Mexico</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Micronesia')">🇫🇲 Micronesia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Moldova')">🇲🇩 Moldova</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Monaco')">🇲🇨 Monaco</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Mongolia')">🇲🇳 Mongolia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Montenegro')">🇲🇪 Montenegro</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Morocco')">🇲🇦 Morocco</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Mozambique')">🇲🇿 Mozambique</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Myanmar')">🇲🇲 Myanmar</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Namibia')">🇳🇦 Namibia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Nauru')">🇳🇷 Nauru</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Nepal')">🇳🇵 Nepal</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Netherlands')">🇳🇱 Netherlands</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('New Zealand')">🇳🇿 New Zealand</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Nicaragua')">🇳🇮 Nicaragua</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Niger')">🇳🇪 Niger</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Nigeria')">🇳🇬 Nigeria</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('North Korea')">🇰🇵 North Korea</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('North Macedonia')">🇲🇰 North Macedonia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Norway')">🇳🇴 Norway</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Oman')">🇴🇲 Oman</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Pakistan')">🇵🇰 Pakistan</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Palau')">🇵🇼 Palau</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Palestine')">🇵🇸 Palestine</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Panama')">🇵🇦 Panama</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Papua New Guinea')">🇵🇬 Papua New Guinea</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Paraguay')">🇵🇾 Paraguay</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Peru')">🇵🇪 Peru</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Philippines')">🇵🇭 Philippines</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Poland')">🇵🇱 Poland</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Portugal')">🇵🇹 Portugal</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Qatar')">🇶🇦 Qatar</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Romania')">🇷🇴 Romania</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Russia')">🇷🇺 Russia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Rwanda')">🇷🇼 Rwanda</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Saint Kitts and Nevis')">🇰🇳 Saint Kitts and Nevis</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Saint Lucia')">🇱🇨 Saint Lucia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Saint Vincent and the Grenadines')">🇻🇨 Saint Vincent and the Grenadines</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Samoa')">🇼🇸 Samoa</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('San Marino')">🇸🇲 San Marino</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Sao Tome and Principe')">🇸🇹 Sao Tome and Principe</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Saudi Arabia')">🇸🇦 Saudi Arabia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Senegal')">🇸🇳 Senegal</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Serbia')">🇷🇸 Serbia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Seychelles')">🇸🇨 Seychelles</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Sierra Leone')">🇸🇱 Sierra Leone</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Singapore')">🇸🇬 Singapore</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Slovakia')">🇸🇰 Slovakia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Slovenia')">🇸🇮 Slovenia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Solomon Islands')">🇸🇧 Solomon Islands</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Somalia')">🇸🇴 Somalia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('South Africa')">🇿🇦 South Africa</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('South Korea')">🇰🇷 South Korea</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('South Sudan')">🇸🇸 South Sudan</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Spain')">🇪🇸 Spain</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Sri Lanka')">🇱🇰 Sri Lanka</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Sudan')">🇸🇩 Sudan</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Suriname')">🇸🇷 Suriname</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Sweden')">🇸🇪 Sweden</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Switzerland')">🇨🇭 Switzerland</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Syria')">🇸🇾 Syria</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Taiwan')">🇹🇼 Taiwan</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Tajikistan')">🇹🇯 Tajikistan</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Tanzania')">🇹🇿 Tanzania</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Thailand')">🇹🇭 Thailand</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Togo')">🇹🇬 Togo</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Tonga')">🇹🇴 Tonga</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Trinidad and Tobago')">🇹🇹 Trinidad and Tobago</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Tunisia')">🇹🇳 Tunisia</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Turkey')">🇹🇷 Turkey</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Turkmenistan')">🇹🇲 Turkmenistan</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Tuvalu')">🇹🇻 Tuvalu</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Uganda')">🇺🇬 Uganda</li>
+            <li class="p-2 cursor-pointer hover:bg-gray-100" onclick="addTag('Ukraine')">Ukraine</li>
+        </ul>
+    </div>
+
+    <script>
+        const tagsContainer1 = document.getElementById('tags1');
+        const tagInput1 = document.getElementById('tag-input1');
+        const dropdown1 = document.getElementById('dropdown1');
+        let currentFocus1 = -1;
+    
+        // Show all items when clicking on input
+        tagInput1.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showAllItems1();
+        });
+    
+        // Filter items as you type
+        tagInput1.addEventListener('input', filterDropdown1);
+    
+        function showAllItems1() {
+            dropdown1.classList.remove('hidden');
+            const items = dropdown1.querySelectorAll('li:not(.text-blue-600)'); // Exclude headers
+            items.forEach(item => {
+                item.style.display = 'block';
+            });
+        }
+    
+        function addTag1(tag) {
+            // Create tag element
+            const tagEl = document.createElement('div');
+            tagEl.classList = 'flex items-center bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium';
+            tagEl.innerHTML = `${tag} <span class="ml-2 cursor-pointer text-red-500" onclick="removeTag1(this)">&times;</span>`;
+            
+            // Add to container
+            tagsContainer1.appendChild(tagEl);
+            
+            // Clear input and keep focus
+            tagInput1.value = '';
+            tagInput1.focus();
+            
+            // Show all items again
+            showAllItems1();
+            currentFocus1 = -1;
+        }
+    
+        function removeTag1(element) {
+            element.parentNode.remove();
+        }
+    
+        function filterDropdown1() {
+            const value = tagInput1.value.toLowerCase();
+            dropdown1.classList.remove('hidden');
+            
+            // Filter dropdown items based on input
+            const items = dropdown1.querySelectorAll('li:not(.text-blue-600)'); // Exclude headers
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                item.style.display = text.includes(value) ? 'block' : 'none';
+            });
+    
+            // Show/hide category headers based on whether they have visible items
+            const categories = dropdown1.querySelectorAll('.text-blue-600');
+            categories.forEach(category => {
+                let nextEl = category.nextElementSibling;
+                let hasVisibleItems = false;
+                
+                while (nextEl && !nextEl.classList.contains('text-blue-600')) {
+                    if (nextEl.style.display !== 'none') {
+                        hasVisibleItems = true;
+                        break;
+                    }
+                    nextEl = nextEl.nextElementSibling;
+                }
+                
+                category.style.display = hasVisibleItems ? 'block' : 'none';
+            });
+    
+            // Reset current focus when filtering
+            currentFocus1 = -1;
+        }
+    
+        // Add keyboard navigation
+        tagInput1.addEventListener('keydown', (e) => {
+            const items = Array.from(dropdown1.querySelectorAll('li:not(.text-blue-600)'))
+                .filter(item => item.style.display !== 'none');
+            
+            if (items.length === 0) return;
+    
+            // Down arrow
+            if (e.keyCode === 40) {
+                e.preventDefault();
+                currentFocus1 = (currentFocus1 + 1) % items.length;
+                setActiveItem1(items);
+            }
+            // Up arrow
+            else if (e.keyCode === 38) {
+                e.preventDefault();
+                currentFocus1 = (currentFocus1 - 1 + items.length) % items.length;
+                setActiveItem1(items);
+            }
+            // Enter key
+            else if (e.keyCode === 13) {
+                e.preventDefault();
+                if (currentFocus1 > -1 && items[currentFocus1]) {
+                    const fullText = items[currentFocus1].innerText;
+                    const tag = fullText.split(' ').slice(1).join(' '); // Remove emoji
+                    addTag1(tag);
+                } else if (items.length > 0) {
+                    const fullText = items[0].innerText;
+                    const tag = fullText.split(' ').slice(1).join(' ');
+                    addTag1(tag);
+                }
+            }
+            // Escape key
+            else if (e.keyCode === 27) {
+                dropdown1.classList.add('hidden');
+                currentFocus1 = -1;
+            }
+        });
+    
+        function setActiveItem1(items) {
+            removeActive1(items);
+            if (currentFocus1 >= 0 && items[currentFocus1]) {
+                items[currentFocus1].classList.add('bg-blue-50');
+                items[currentFocus1].classList.remove('hover:bg-gray-100');
+                items[currentFocus1].scrollIntoView({ block: 'nearest' });
+            }
+        }
+    
+        function removeActive1(items) {
+            items.forEach(item => {
+                item.classList.remove('bg-blue-50');
+                item.classList.add('hover:bg-gray-100');
+            });
+        }
+    
+        // Hide dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!dropdown1.contains(e.target) && e.target !== tagInput1) {
+                dropdown1.classList.add('hidden');
+                currentFocus1 = -1;
+            }
+        });
+    
+        // Prevent dropdown from closing when clicking inside it
+        dropdown1.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    
+        // Clear current focus when mouse enters dropdown
+        dropdown1.addEventListener('mouseenter', () => {
+            const items = dropdown1.querySelectorAll('li:not(.text-blue-600)');
+            removeActive1(Array.from(items));
+            currentFocus1 = -1;
+        });
+    
+        // Initialize by showing all items if input is focused
+        tagInput1.addEventListener('focus', showAllItems1);
+    </script>
+    
+
+
+</body>
+</html>
